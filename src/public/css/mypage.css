@@ -1,0 +1,103 @@
+.mypage,
+.mypage-edit {
+    padding-top: 20px;
+}
+
+.mypage-head {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.avatar {
+    width: 96px;
+    height: 96px;
+}
+
+.avatar img,
+.avatar--placeholder {
+    width: 96px;
+    height: 96px;
+    border-radius: 999px;
+    background: #ddd;
+    display: block;
+}
+
+.username {
+    margin: 0;
+    font-size: 24px;
+}
+
+.btn-edit {
+    margin-left: auto;
+}
+
+.tabs {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid var(--border);
+    margin: 16px 0;
+}
+
+.tab {
+    padding: 12px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.tab--active {
+    color: #e60023;
+    font-weight: 700;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.card-thumb {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #ddd;
+    border-radius: 8px;
+}
+
+.card-title {
+    margin-top: 8px;
+}
+
+.page-title {
+    font-size: 22px;
+    margin: 8px 0 20px;
+    text-align: center;
+}
+
+.form {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.form-label {
+    font-weight: 700;
+}
+
+.form-error {
+    color: #c00;
+    font-size: 13px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+}

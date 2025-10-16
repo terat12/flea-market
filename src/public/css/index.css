@@ -1,0 +1,87 @@
+/* 一覧グリッド */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    background: transparent;
+    min-height: auto;
+    border: none;
+}
+
+/* カード */
+.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* サムネイル：height:100% は使わない */
+.card-thumb {
+    aspect-ratio: 1/1;
+    height: auto;
+    background: #eee;
+    border-radius: 6px;
+}
+
+.card-title {
+    margin-top: 8px;
+    font-weight: 700;
+}
+
+.card-price {
+    color: #333;
+}
+
+
+/* Laravelページネーション
+       簡易スタイル     */
+
+nav[role="navigation"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 24px 0;
+    font-size: 14px;
+}
+
+/* Tailwindが無いと .hidden / .sm:hidden が効かないので明示的に消す */
+nav[role="navigation"] .hidden,
+nav[role="navigation"] .sm\:hidden {
+    display: none;
+}
+
+/* 各ページ番号とPrev/Nextの見た目 */
+nav[role="navigation"] a,
+nav[role="navigation"] span,
+nav[role="navigation"] .relative {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    margin: 0 2px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    background: #fff;
+}
+
+/* 現在ページの強調 */
+nav[role="navigation"] [aria-current="page"] {
+    background: #ff6b6b;
+    color: #fff;
+    border-color: #ff6b6b;
+}
+
+/* 矢印SVGの巨大化を防ぐ */
+nav[role="navigation"] svg {
+    width: 16px;
+    height: 16px;
+}
