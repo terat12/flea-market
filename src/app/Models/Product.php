@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment;
 
 class Product extends Model
 {
@@ -17,6 +18,7 @@ class Product extends Model
         'condition',
         'category',
         'image_path',
+        'user_id',
     ];
 
     public function getConditionLabelAttribute(): string
@@ -28,12 +30,22 @@ class Product extends Model
     //マイリスト関連
     public function likedUsers()
     {
-        return $this->belongsToMany(User::class, 'likes')
-            ->withTimestamps();
+        return $this->belongsToMany(\App\Models\User::class, 'likes')->withTimestamps();
     }
 
-    public function isLikedBy(?User $user): bool
+    public function isLikedBy(?\App\Models\User $user): bool
     {
         return $user ? $this->likedUsers()->where('user_id', $user->id)->exists() : false;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

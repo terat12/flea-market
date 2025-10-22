@@ -51,9 +51,6 @@
     <aside class="purchase-summary">
         <div class="summary-box">
             <div class="row"><span>お支払い金額</span><span>¥{{ number_format((int) data_get($product,'price')) }}</span></div>
-            @isset($order)
-            <div class="row"><span>ステータス</span><span>{{ $order->status }}</span></div>
-            @endisset
         </div>
     </aside>
 </div>

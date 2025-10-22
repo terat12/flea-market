@@ -48,4 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Product::class, 'likes')
             ->withTimestamps();
     }
+
+    public function needsProfileSetup(): bool
+    {
+        return empty($this->zipcode) || empty($this->address);
+    }
 }

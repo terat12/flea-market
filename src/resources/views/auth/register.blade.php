@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('title','会員登録')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+@endpush
+
 @section('content')
-<div class="container">
+<div class="auth">
     <h1 class="page-title">会員登録</h1>
 
-    <form method="POST" action="{{ route('register') }}" novalidate>
+    <form method="POST" action="{{ route('register') }}" novalidate class="auth-form">
         @csrf
 
         <div class="form-field">
@@ -31,8 +35,8 @@
             <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
         </div>
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn--primary">登録する</button>
+        <div class="form-actions"> {{-- ← ボタン上に余白を付けるためのブロック --}}
+            <button type="submit" class="btn btn--primary btn--block">登録する</button> {{-- ← 入力幅と同じ100%に --}}
         </div>
     </form>
 

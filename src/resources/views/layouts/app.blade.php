@@ -18,10 +18,10 @@
     <header class="site-header">
         <div class="header-bar container">
             <a class="logo" href="{{ auth()->check() ? route('products.index') : route('products.index.guest') }}">
-                <span class="logo-mark">GT</span><span class="logo-text">COACHTECH</span>
+                <img src="{{ asset('logo.svg') }}" alt="COACHTECH" class="logo-img">
             </a>
 
-            <form class="search" action="{{ route('products.index') }}" method="GET" role="search">
+            <form class="search" action="{{ auth()->check() ? route('products.index') : route('products.index.guest') }}" method="GET" role="search">
                 <input class="search-input" type="search" name="q" placeholder="なにをお探しですか？" value="{{ request('q') }}">
             </form>
 

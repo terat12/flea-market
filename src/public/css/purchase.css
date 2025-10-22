@@ -1,16 +1,8 @@
-.purchase {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 24px 16px;
-}
-
 .purchase-main {
     display: flex;
     flex-direction: column;
     gap: 28px;
+    min-width: 0;
 }
 
 .purchase-item {
@@ -19,12 +11,37 @@
     align-items: center;
 }
 
-.thumb {
-    width: 80px;
-    height: 80px;
-    background: #ddd;
-    border-radius: 6px;
+
+.purchase {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px;
 }
+
+.purchase-main {
+    min-width: 0;
+}
+
+/* 画像が大きくてもはみ出さない保険 */
+.purchase .thumb {
+    width: 120px;
+    height: 120px;
+    flex: 0 0 120px;
+    background: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.purchase .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 
 .item-title {
     font-weight: 700;
@@ -80,16 +97,6 @@
     margin: 6px 0;
 }
 
-.btn-primary {
-    width: 100%;
-    height: 44px;
-    border: none;
-    border-radius: 6px;
-    background: #ff6b6b;
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-}
 
 @media (max-width: 900px) {
     .purchase {
@@ -117,9 +124,44 @@
     margin-top: 6px;
 }
 
-.complete-actions {
-    margin-top: 16px;
+
+
+/* 商品名と価格を上揃え */
+.purchase-item {
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.purchase-item>div:last-child {
+    margin-top: 2px;
+}
+
+/* セレクトの横幅 */
+.purchase .select {
+    width: 280px;
+}
+
+.purchase .select select {
+    width: 100%;
+}
+
+
+/* 「変更する」を右上に */
+.section-title-row {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.section-title-row .link {
+    font-size: 12px;
+    color: #1e88e5;
+    text-decoration: underline;
+}
+
+/* 右カラムの購入ボタン */
+.purchase-summary .btn {
+    width: 100%;
+    margin-top: 12px;
 }

@@ -12,15 +12,44 @@
 
     {{-- 画像 --}}
     <div class="form-block">
-        <label class="form-label" for="image">商品画像（任意）</label>
-        <input id="image" type="file" name="image" accept="image/*">
+        <label class="form-label" for="image">商品画像</label>
+
+        {{-- 初期ボタンを隠し、ラベルをドロップ枠に変える --}}
+        <label for="image" class="image-drop">
+            画像を選択する
+            <input id="image" type="file" name="image" accept="image/*" class="visually-hidden">
+        </label>
+
         @error('image')<div class="form-error">{{ $message }}</div>@enderror
     </div>
 
+    <h2 class="section-title">商品の詳細</h2>
+
     {{-- カテゴリ --}}
+    @php
+    $categories = [
+    'ファッション','家電','インテリア','レディース','メンズ','コスメ',
+    '本','ゲーム','スポーツ','キッチン','ハンドメイド','アクセサリー',
+    'おもちゃ','ベビー・キッズ'];
+    $picked = old('category');
+    @endphp
+
     <div class="form-block">
-        <label class="form-label" for="category">カテゴリー</label>
-        <input id="category" class="form-input" type="text" name="category" value="{{ old('category') }}" placeholder="例）家電">
+        <label class="form-label">カテゴリー</label>
+        <fieldset class="chips">
+            @foreach($categories as $i => $cat)
+            <input
+                type="radio"
+                id="cat-{{ $i }}"
+                name="category"
+                value="{{ $cat }}"
+                class="chip-input visually-hidden"
+                {{ $picked === $cat ? 'checked' : '' }}
+                required>
+            <label class="chip" for="cat-{{ $i }}">{{ $cat }}</label>
+            @endforeach
+        </fieldset>
+        @error('category')<div class="form-error">{{ $message }}</div>@enderror
     </div>
 
     {{-- 状態 --}}
@@ -63,7 +92,16 @@
         <label class="form-label" for="price">販売価格</label>
         <div class="price-row">
             <span class="yen">¥</span>
-            <input id="price" class="form-input price-input" type="number" name="price" value="{{ old('price') }}" min="1" required>
+            <input
+                id="price"
+                class="form-input price-input"
+                type="number"
+                name="price"
+                value="{{ old('price') }}"
+                min="1"
+                step="1"
+                inputmode="numeric"
+                pattern="[0-9]*">
         </div>
         @error('price')<div class="form-error">{{ $message }}</div>@enderror
     </div>

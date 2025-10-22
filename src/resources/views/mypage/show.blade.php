@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title','マイページ')
 @push('styles')
+<link rel="stylesheet" href="{{ asset('css/index.css') }}"> {{-- ← 追加：カード/グリッド共用 --}}
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endpush
 
@@ -18,13 +19,19 @@
         <a class="btn btn--primary btn-edit" href="{{ route('profile.edit') }}">プロフィールを編集</a>
     </div>
 
-    <div class="tabs">
+    <div class="tabs" role="tablist">
         <a href="{{ route('profile.show', ['tab' => 'listed']) }}"
-            class="tab {{ $tab === 'listed' ? 'tab--active' : '' }}">出品した商品</a>
+            class="tab {{ $tab === 'listed' ? 'tab--active' : '' }}"
+            @if($tab==='listed' ) aria-current="page" @endif>出品した商品</a>
         <a href="{{ route('profile.show', ['tab' => 'purchased']) }}"
-            class="tab {{ $tab === 'purchased' ? 'tab--active' : '' }}">購入した商品</a>
+            class="tab {{ $tab === 'purchased' ? 'tab--active' : '' }}"
+            @if($tab==='purchased' ) aria-current="page" @endif>購入した商品</a>
     </div>
 
-    @include('partials.product-grid', ['products' => $items])
+    @if($items->isEmpty())
+    <p class="muted mt-16">表示できる商品がありません。</p>
+    @else
+    @include('partials.product-grid', ['products' => $items]) {{-- .grid / .card を index.css から再利用 --}}
+    @endif
 </div>
 @endsection

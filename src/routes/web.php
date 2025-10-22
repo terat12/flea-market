@@ -4,16 +4,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\LikeController;
 
+
 // （ログイン時のみ）
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'profile.completed'])->group(function () {
     // 商品一覧・詳細・出品
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create'); // ★追加
     Route::get('/products/{id}', [ProductController::class, 'entrance'])->name('products.entrance');
+
+    // コメント機能
+    Route::post('/products/{product}/comments', [CommentController::class, 'store'])
+        ->name('products.comments.store');
 
     Route::get('/purchase/checkout/{product}', [PurchaseController::class, 'checkout'])
         ->name('purchase.checkout');

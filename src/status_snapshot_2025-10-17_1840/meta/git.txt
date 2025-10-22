@@ -1,0 +1,13 @@
+== git status -sb ==
+## main...origin/main
+ M app/Http/Controllers/ProfileController.php
+?? ../.gitignore
+?? ../make_status_pack.sh
+?? make_status_pack.sh
+?? status_snapshot_2025-10-17_1840/
+
+== recent commits ==
+3ad1cee Add src as a normal directory
+c967ab8 Remove submodule link for src
+9555e4a Add src folder as normal directory
+b96190d first commit

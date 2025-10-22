@@ -55,6 +55,63 @@ nav[role="navigation"] .sm\:hidden {
     display: none;
 }
 
+
+/* --- タブ（おすすめ / マイリスト） --- */
+.product-index .tabs {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid #eee;
+    margin: 8px 0 16px;
+}
+
+.product-index .tab {
+    position: relative;
+    display: inline-block;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #777;
+    font-weight: 600;
+}
+
+.product-index .tab--active {
+    color: #ff6b6b;
+}
+
+.product-index .tab--active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: #ff6b6b;
+    border-radius: 3px;
+}
+
+/* --- 余白（タブの下に少し間を空ける） --- */
+.product-index .grid {
+    margin-top: 8px;
+}
+
+/* --- カードのトリミング1:1 角丸 --- */
+.card-thumb {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+}
+
+
+
+
+
+/* 余裕があれば */
 /* 各ページ番号とPrev/Nextの見た目 */
 nav[role="navigation"] a,
 nav[role="navigation"] span,
