@@ -21,10 +21,21 @@ class Product extends Model
         'user_id',
     ];
 
-    public function getConditionLabelAttribute(): string
+    public function getCategoryListAttribute(): array
     {
-        $labels = [1 => '新品', 2 => '未使用に近い', 3 => '目立った傷や汚れなし', 4 => 'やや傷や汚れあり', 5 => '傷や汚れあり', 6 => '全体的に状態が悪い'];
-        return $labels[$this->condition] ?? '不明';
+        $val = (string) ($this->category ?? '');
+        if ($val === '') return [];
+
+        // 「、」「,」「/」で分割
+        $parts = preg_split('/[、,\/]+/u', $val, -1, PREG_SPLIT_NO_EMPTY);
+
+        // 先頭と末尾のあらゆる空白をトリム
+        $parts = array_map(
+            fn($s) => preg_replace('/^\pZ+|\pZ+$/u', '', $s),
+            $parts
+        );
+        // 空白を除去し、字を詰める
+        return array_values(array_filter($parts, fn($s) => $s !== ''));
     }
 
     //マイリスト関連

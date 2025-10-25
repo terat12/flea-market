@@ -21,6 +21,7 @@ $detailRoute = request()->is('g/*')
     <div class="tabs">
         <a href="{{ route('products.index', array_merge($qs, ['tab' => 'recommend'])) }}"
             class="tab {{ $tab === 'recommend' ? 'tab--active' : '' }}">おすすめ</a>
+
         <a href="{{ route('products.index', array_merge($qs, ['tab' => 'likes'])) }}"
             class="tab {{ $tab === 'likes' ? 'tab--active' : '' }}">マイリスト</a>
     </div>

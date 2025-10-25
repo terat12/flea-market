@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -60,16 +61,32 @@ class ProductController extends Controller
     return view('products.entrance', compact('product', 'isLiked'));
     }
 
-    public function store(\App\Http\Requests\StoreProductRequest $request)
+    public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
 
-        $data['user_id'] = auth()->id();
-
+        // 画像
         if ($request->hasFile('image')) {
             $data['image_path'] = $request->file('image')->store('products', 'public');
         }
 
+        $cats = (array) $request->input('categories', []);
+
+        // 先頭末尾の空白を除去
+        $cats = array_map(
+            fn($s) => preg_replace('/^\pZ+|\pZ+$/u', '', (string) $s),
+            $cats
+        );
+
+        // 空・重複を排除
+        $cats = array_values(array_unique(array_filter($cats)));
+
+        // 「、」で1本の文字列として保存
+        $data['category'] = implode('、', $cats);
+        unset($data['categories']);
+
+        $data['user_id'] = auth()->id();
+        
         $product = Product::create($data);
 
         return redirect()

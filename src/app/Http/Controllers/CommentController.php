@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Product $product)
+    public function store(CommentRequest $request, Product $product)
     {
-        // バリデーション（一時的）
-        $data = $request->validate([
-            'body' => ['required', 'string', 'max:1000'],
-        ]);
+        // バリデーション
+        $data = $request->validated();
 
         // 保存（ログイン中のユーザーで紐付け）
         $product->comments()->create([

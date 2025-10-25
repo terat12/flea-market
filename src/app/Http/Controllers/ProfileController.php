@@ -13,19 +13,22 @@ class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        /** @var User $user */
+        /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        // ▼ タブを読み取る（規定値は「購入した商品」）
-        $tab = $request->query('tab', 'purchased');
+        $page = $request->query('page', 'buy');
+        if (!in_array($page, ['buy', 'sell'], true)) {
+            $page = 'buy';
+        }
 
-        // ▼ Productのコレクション
-        if ($tab === 'listed') {
-            $items = Product::where('user_id', $user->id)
+        if ($page === 'sell') {
+            // 出品した商品
+            $items = \App\Models\Product::where('user_id', $user->id)
                 ->latest('id')
                 ->get();
         } else {
-            $items = Order::with(['product:id,title,price,image_path'])
+            // 購入した商品
+            $items = \App\Models\Order::with(['product:id,title,price,image_path'])
                 ->where('user_id', $user->id)
                 ->latest('id')
                 ->get()
@@ -33,8 +36,10 @@ class ProfileController extends Controller
                 ->filter()
                 ->values();
         }
-            return view('mypage.show', compact('user', 'tab', 'items'));
+
+        return view('mypage.show', compact('user', 'items', 'page'));
     }
+
 
 
     public function edit()

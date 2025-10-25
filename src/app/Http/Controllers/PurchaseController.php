@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Order;
-use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
@@ -19,16 +19,13 @@ class PurchaseController extends Controller
     }
 
 
-    public function complete(Request $request)
+    public function complete(PurchaseRequest $request)
     {
-        $validated = $request->validate([
-            'product_id' => ['required', 'exists:products,id'],
-            'payment'    => ['required', 'in:convenience,card'],
-        ]);
+        $validated = $request->validated(); // バリデーション
 
         $user = Auth::user();
 
-        // 配送先チェック（未設定ならプロフィール編集へ?）
+        // 配送先チェック（未設定ならプロフィール編集へ）
         if (empty($user->zipcode) || empty($user->address)) {
             return redirect()->route('profile.edit')
                 ->with('error', '配送先が未設定です。プロフィールから設定してください。');

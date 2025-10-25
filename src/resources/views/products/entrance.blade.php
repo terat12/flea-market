@@ -66,15 +66,16 @@
             @else
             <p class="muted">説明はありません。</p>
             @endif
-
             <h2 class="section-title">商品の情報</h2>
+
             <p>カテゴリ：
-                @if($product->category)
-                <span class="badge">{{ $product->category }}</span>
-                @else
-                <span class="muted">—</span>
-                @endif
+                @forelse ($product->category_list as $cat)
+                    <span class="badge">{{ $cat }}</span>
+                @empty
+                    <span class="muted">—</span>
+                @endforelse
             </p>
+
             <p>商品の状態：{{ $product->condition_label }}</p>
 
             {{-- コメント一覧見出し --}}

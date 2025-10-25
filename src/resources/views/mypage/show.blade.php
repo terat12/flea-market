@@ -20,13 +20,17 @@
     </div>
 
     <div class="tabs" role="tablist">
-        <a href="{{ route('profile.show', ['tab' => 'listed']) }}"
-            class="tab {{ $tab === 'listed' ? 'tab--active' : '' }}"
-            @if($tab==='listed' ) aria-current="page" @endif>出品した商品</a>
-        <a href="{{ route('profile.show', ['tab' => 'purchased']) }}"
-            class="tab {{ $tab === 'purchased' ? 'tab--active' : '' }}"
-            @if($tab==='purchased' ) aria-current="page" @endif>購入した商品</a>
+        {{-- 出品した商品一覧 --}}
+        <a href="{{ route('profile.show', ['page' => 'sell']) }}"
+            class="tab {{ $page === 'sell' ? 'tab--active' : '' }}"
+            @if($page==='sell' ) aria-current="page" @endif>出品した商品</a>
+
+        {{-- 購入した商品一覧 --}}
+        <a href="{{ route('profile.show', ['page' => 'buy']) }}"
+            class="tab {{ $page === 'buy' ? 'tab--active' : '' }}"
+            @if($page==='buy' ) aria-current="page" @endif>購入した商品</a>
     </div>
+
 
     @if($items->isEmpty())
     <p class="muted mt-16">表示できる商品がありません。</p>

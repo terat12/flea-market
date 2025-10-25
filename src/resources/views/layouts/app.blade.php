@@ -15,12 +15,18 @@
 </head>
 
 <body>
-    <header class="site-header">
+    @php
+    // ログイン・会員登録・メール認証画面は、ロゴのみに
+    $simpleHeader = request()->routeIs(['login','register','verification.notice']);
+    @endphp
+
+    <header class="site-header {{ $simpleHeader ? 'site-header--simple' : '' }}">
         <div class="header-bar container">
             <a class="logo" href="{{ auth()->check() ? route('products.index') : route('products.index.guest') }}">
                 <img src="{{ asset('logo.svg') }}" alt="COACHTECH" class="logo-img">
             </a>
 
+            @unless($simpleHeader)
             <form class="search" action="{{ auth()->check() ? route('products.index') : route('products.index.guest') }}" method="GET" role="search">
                 <input class="search-input" type="search" name="q" placeholder="なにをお探しですか？" value="{{ request('q') }}">
             </form>
@@ -40,9 +46,15 @@
                 <a class="btn btn--primary" href="{{ route('register') }}">会員登録</a>
                 @endguest
             </nav>
+            @endunless
         </div>
+
+        {{-- ロゴだけの時は下線も消す --}}
+        @unless($simpleHeader)
         <div class="header-underline"></div>
+        @endunless
     </header>
+
 
     <main class="container">
         @if (session('status'))

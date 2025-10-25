@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title','商品の出品')
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/product-create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/create.css') }}">
 @endpush
 
 @section('content')
@@ -30,27 +30,29 @@
     $categories = [
     'ファッション','家電','インテリア','レディース','メンズ','コスメ',
     '本','ゲーム','スポーツ','キッチン','ハンドメイド','アクセサリー',
-    'おもちゃ','ベビー・キッズ'];
-    $picked = old('category');
+    'おもちゃ','ベビー・キッズ',
+    ];
+    $selected = old('categories', []); // ← 配列で受ける
     @endphp
 
     <div class="form-block">
         <label class="form-label">カテゴリー</label>
-        <fieldset class="chips">
-            @foreach($categories as $i => $cat)
+
+        <fieldset class="chips" role="group" aria-label="カテゴリー">
+            @foreach ($categories as $i => $cat)
             <input
-                type="radio"
+                type="checkbox"
                 id="cat-{{ $i }}"
-                name="category"
+                name="categories[]"
                 value="{{ $cat }}"
                 class="chip-input visually-hidden"
-                {{ $picked === $cat ? 'checked' : '' }}
-                required>
+                {{ in_array($cat, (array)$selected, true) ? 'checked' : '' }}>
             <label class="chip" for="cat-{{ $i }}">{{ $cat }}</label>
             @endforeach
         </fieldset>
-        @error('category')<div class="form-error">{{ $message }}</div>@enderror
+        @error('categories') <div class="form-error">{{ $message }}</div> @enderror
     </div>
+
 
     {{-- 状態 --}}
     <div class="form-block">
