@@ -23,6 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
             'password.required' => 'パスワードを入力してください',
             // 認証失敗時の文言は後でコントローラ側で
             // 「ログイン情報が登録されていません」を返す実装にします

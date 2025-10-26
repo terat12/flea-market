@@ -34,7 +34,17 @@
    docker compose exec php php artisan db:seed
    docker compose exec php php artisan storage:link
 
-> 注意：`.env` は機密情報を含むためコミットしないでください。
+> 注意：`.env`、`.env.testing` は機密情報を含むためコミットしないでください。
+
+ # テンプレからテスト用envを作成（APP_KEYは各自生成）
+   cp .env.testing.example .env.testing
+   php artisan key:generate --env=testing
+
+ # テスト用DBにマイグレーション
+   php artisan migrate --env=testing
+
+ # テスト実行（PHPコンテナ内を想定）
+   vendor/bin/phpunit -v
 
 ---
 
