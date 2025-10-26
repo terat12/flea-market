@@ -47,8 +47,8 @@
 ---
 
 ## 使用技術（実行環境）
-- PHP / Laravel（Fortify 認証）
-- MySQL
+- PHP 8.1 / Laravel 8.x（Fortify 認証）
+- MySQL 8
 - Nginx + PHP-FPM（Docker）
 - MailHog
 
